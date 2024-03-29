@@ -67,6 +67,7 @@ public class StatRepositoryTest {
                         List.of("testEndpoint2", "testEndpoint1"));
 
         assertEquals(result.size(), 3);
+        assertEquals(result.get(0).getHits(),2L);
     }
 
 }
