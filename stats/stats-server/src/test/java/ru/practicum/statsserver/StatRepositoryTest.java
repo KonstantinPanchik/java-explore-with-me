@@ -61,10 +61,10 @@ public class StatRepositoryTest {
         statRepository.save(hit3);
         statRepository.save(hit4);
 
-        List<ViewStats> result = statRepository.
-                getStatWithUrisNoUniq(testTime.minusDays(10),
-                        testTime.plusDays(10)
-                        , List.of("testEndpoint2", "testEndpoint1"));
+        List<ViewStats> result = statRepository
+                .getStatWithUrisNoUniq(testTime.minusDays(10),
+                        testTime.plusDays(10),
+                        List.of("testEndpoint2", "testEndpoint1"));
 
         assertEquals(result.size(), 3);
     }
