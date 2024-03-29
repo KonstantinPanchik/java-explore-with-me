@@ -25,7 +25,7 @@ public class StatRepositoryTest {
     }
 
     @Test
-    public void shoudGet() {
+    public void shouldGet() {
         LocalDateTime testTime = LocalDateTime.of(2010, 2, 1, 12, 12, 12);
 
         EndpointHit hit1 = EndpointHit.builder()
