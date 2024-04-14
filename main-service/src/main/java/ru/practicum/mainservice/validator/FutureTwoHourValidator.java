@@ -17,12 +17,8 @@ public class FutureTwoHourValidator implements ConstraintValidator<FutureTwoHour
         LocalDateTime startDate = LocalDateTime.now().plusHours(2);
 
 
-        if (localDate.isAfter(startDate) || localDate.isEqual(startDate)) {
-            return localDate.isAfter(startDate) || localDate.isEqual(startDate);
-        } else {
-            throw new FutureTwoHourException("Field: eventDate." +
-                    " Error: должно содержать дату, которая еще не наступила. Value: " + localDate.toString());
-        }
+        return localDate.isAfter(startDate) || localDate.isEqual(startDate);
+
 
     }
 }

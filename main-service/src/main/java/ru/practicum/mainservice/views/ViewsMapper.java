@@ -66,7 +66,7 @@ public class ViewsMapper {
         List<String> uris =
                 events.stream().map(e -> "/events/" + e.getId()).collect(Collectors.toList());
 
-        String answer = statsClient.getStat(start, end, uris, false).getBody();
+        String answer = statsClient.getStat(start, end, uris, true).getBody();
 
         ObjectMapper objectMapper = new ObjectMapper();
 

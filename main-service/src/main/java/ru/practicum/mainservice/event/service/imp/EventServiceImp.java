@@ -298,7 +298,7 @@ public class EventServiceImp implements EventService {
     }
 
     private List<Category> categoryFromIdsOrAll(List<Long> categories) {
-        if (categories == null || categories.isEmpty()) {
+        if (categories == null || categories.isEmpty() || categories.get(0) == 0) {
             return categoryRepository.findAll();
         } else {
             return categoryRepository.findAllById(categories);

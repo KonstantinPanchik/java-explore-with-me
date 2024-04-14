@@ -8,6 +8,7 @@ import ru.practicum.mainservice.location.Location;
 import ru.practicum.mainservice.validator.FutureTwoHour;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 public class NewEventDto {
 
     @NotNull
+    @NotBlank
     @Size(max = 2000, min = 20)
     private String annotation;
 
@@ -25,6 +27,7 @@ public class NewEventDto {
     private Long category;
 
     @NotNull
+    @NotBlank
     @Size(max = 7000, min = 20)
     private String description;
 
