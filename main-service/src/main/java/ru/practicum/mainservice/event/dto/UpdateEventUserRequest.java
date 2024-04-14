@@ -35,7 +35,7 @@ public class UpdateEventUserRequest {
 
     private EventUpdateUserState stateAction;
 
-    @Size(max = 7000, min = 20)
+    @Size(max = 120, min = 3)
     private String title;
 
 

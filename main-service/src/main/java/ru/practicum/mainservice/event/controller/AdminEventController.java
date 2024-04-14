@@ -10,6 +10,7 @@ import ru.practicum.mainservice.event.dto.UpdateEventUserRequest;
 import ru.practicum.mainservice.event.model.State;
 import ru.practicum.mainservice.event.service.EventService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,7 +46,7 @@ public class AdminEventController {
 
     @PatchMapping("/{eventId}")
     public ResponseEntity<Object> updateByAdmin(@PathVariable Long eventId,
-                                                @RequestBody UpdateEventUserRequest adminRequest) {
+                                                @RequestBody @Valid UpdateEventUserRequest adminRequest) {
 
         return ResponseEntity.ok(eventService.updateByAdmin(eventId, adminRequest));
     }

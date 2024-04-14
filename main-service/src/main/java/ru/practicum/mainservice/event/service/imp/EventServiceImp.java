@@ -90,8 +90,8 @@ public class EventServiceImp implements EventService {
 
         EventUpdateUserState action = updateEventUserRequest.getStateAction();
 
-        if (action == null || action.equals(EventUpdateUserState.CANCEL_REVIEW)
-                || action.equals(EventUpdateUserState.PUBLISH_EVENT)) {
+        if (action != null && (action.equals(EventUpdateUserState.CANCEL_REVIEW)
+                || action.equals(EventUpdateUserState.PUBLISH_EVENT))) {
             throw new ConflictException("This action available only for admin");
         }
 
@@ -261,12 +261,12 @@ public class EventServiceImp implements EventService {
 
         EventUpdateUserState action = adminRequest.getStateAction();
 
-        if (action == null || action.equals(EventUpdateUserState.CANCEL_REVIEW)
-                || action.equals(EventUpdateUserState.SEND_TO_REVIEW)) {
+        if (action != null && (action.equals(EventUpdateUserState.CANCEL_REVIEW)
+                || action.equals(EventUpdateUserState.SEND_TO_REVIEW))) {
             throw new ConflictException("This action available only for user");
         }
 
-        if (action.equals(EventUpdateUserState.PUBLISH_EVENT)
+        if (action != null && action.equals(EventUpdateUserState.PUBLISH_EVENT)
                 && event.getPublishedOn().isBefore(event.getEventDate().plusHours(1))) {
             throw new ConflictException("Published date must be one hour before eventDate");
         }
@@ -290,7 +290,7 @@ public class EventServiceImp implements EventService {
 
 
     private List<User> usersFromIdsOrAll(List<Long> users) {
-        if (users == null || users.isEmpty()) {
+        if (users == null || users.isEmpty() || users.get(0) == 0) {
             return userRepository.findAll();
         } else {
             return userRepository.findAllById(users);
