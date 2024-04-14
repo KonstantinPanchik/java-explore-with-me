@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.practicum.mainservice.location.Location;
 import ru.practicum.mainservice.validator.FutureTwoHour;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -37,6 +38,7 @@ public class NewEventDto {
 
     private Boolean paid; //false по умолчанию
 
+    @Min(0)
     private int participantLimit;
 
     private Boolean requestModeration;//true по умо

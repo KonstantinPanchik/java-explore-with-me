@@ -3,6 +3,7 @@ package ru.practicum.mainservice.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.practicum.mainservice.exception.model.ApiError;
@@ -50,6 +51,22 @@ public class ErrorHandler {
                         .reason("For the requested operation the conditions are not met.")
                         .message(e.getMessage())
                         .status(HttpStatus.CONFLICT)
+                        .timestamp(LocalDateTime.now())
+                        .build();
+
+
+        return ResponseEntity.status(apiError.getStatus()).body(apiError);
+    }
+
+
+    @ExceptionHandler
+    public ResponseEntity<ApiError> handleHappinessOverflow(final ServletRequestBindingException e) {
+
+        ApiError apiError =
+                ApiError.builder()
+                        .reason("Incorrectly made request.")
+                        .message(e.getMessage())
+                        .status(HttpStatus.BAD_REQUEST)
                         .timestamp(LocalDateTime.now())
                         .build();
 

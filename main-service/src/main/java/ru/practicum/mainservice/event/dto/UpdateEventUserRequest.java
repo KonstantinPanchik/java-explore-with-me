@@ -5,6 +5,7 @@ import lombok.Data;
 import ru.practicum.mainservice.location.Location;
 import ru.practicum.mainservice.validator.FutureTwoHour;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -27,6 +28,7 @@ public class UpdateEventUserRequest {
 
     private Boolean paid;
 
+    @Min(0)
     private Integer participantLimit;
 
     private Boolean requestModeration;

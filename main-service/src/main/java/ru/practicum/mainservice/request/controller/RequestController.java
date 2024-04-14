@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.mainservice.request.service.RequestService;
 
 @RestController
-@RequestMapping("users/{userId}/request")
+@RequestMapping("users/{userId}/requests")
 public class RequestController {
 
 

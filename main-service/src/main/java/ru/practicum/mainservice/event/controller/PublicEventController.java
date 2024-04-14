@@ -3,6 +3,7 @@ package ru.practicum.mainservice.event.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.mainservice.event.model.EventSort;
 import ru.practicum.mainservice.event.service.EventService;
@@ -35,16 +36,22 @@ public class PublicEventController {
     @GetMapping
     public ResponseEntity<Object> searchEvents(@RequestParam(required = false, defaultValue = "") String text,
                                                @RequestParam(required = false) List<Long> categories,
-                                               @RequestParam Boolean paid,
+                                               @RequestParam(required = false) Boolean paid,
                                                @RequestParam(required = false)
                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeStart,
                                                @RequestParam(required = false)
                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
-                                               @RequestParam(required = false) Boolean onlyAvailable,
+                                               @RequestParam(required = false, defaultValue = "false") Boolean onlyAvailable,
                                                @RequestParam(name = "sort") EventSort eventSort,
                                                @RequestParam(required = false, defaultValue = "0") @Min(0) Integer from,
                                                @RequestParam(required = false, defaultValue = "10") @Min(1) Integer size,
-                                               HttpServletRequest request) {
+                                               HttpServletRequest request) throws ServletRequestBindingException {
+
+        if (rangeStart != null && rangeEnd != null && rangeEnd.isBefore(rangeStart)) {
+
+            throw new ServletRequestBindingException("[rangeStart-rangeEnd]");
+        }
+
         String ip = request.getRemoteAddr();
 
         return ResponseEntity.ok(eventService.getPublishedFilteredEvents(text,

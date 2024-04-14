@@ -24,13 +24,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "or UPPER(e.description) like UPPER(concat('%' ,?1,'%'))) " +
             "AND e.eventDate>?2 " +
             "AND e.eventDate<?3 " +
-            "AND e.paid=?4 " +
+            "AND e.paid IN ?4 " +
             "AND e.category in ?5 " +
             "AND e.state=?6")
     List<Event> filteredEventsNotOnlyAvailable(String text,
                                                LocalDateTime rangeStart,
                                                LocalDateTime rangeEnd,
-                                               boolean paid,
+                                               List<Boolean> paids,
                                                List<Category> categories,
                                                State state,
                                                Pageable pageable);
@@ -41,14 +41,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "or UPPER(e.description) like UPPER(concat('%' ,?1,'%'))) " +
             "AND e.eventDate>?2 " +
             "AND e.eventDate<?3 " +
-            "AND e.paid=?4 " +
+            "AND e.paid IN ?4  " +
             "AND e.category in ?5 " +
             "AND (e.confirmedRequests<e.participantLimit or e.participantLimit=0)" +
             "AND e.state=?6")
     List<Event> filteredEventsOnlyAvailable(String text,
                                             LocalDateTime rangeStart,
                                             LocalDateTime rangeEnd,
-                                            boolean paid,
+                                            List<Boolean> paids,
                                             List<Category> categories,
                                             State state,
                                             Pageable pageable);
@@ -58,12 +58,12 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "Where (UPPER(e.annotation) like UPPER(concat('%' ,?1,'%'))" +
             "or UPPER(e.description) like UPPER(concat('%' ,?1,'%'))) " +
             "AND e.eventDate>?2  " +
-            "AND e.paid=?3 " +
+            "AND e.paid IN ?3 " +
             "AND e.category in ?4 " +
             "AND e.state=?5")
     List<Event> filteredEventsNotOnlyAvailableNoRangeDate(String text,
                                                           LocalDateTime rangeStart,
-                                                          boolean paid,
+                                                          List<Boolean> paids,
                                                           List<Category> categories,
                                                           State state,
                                                           Pageable pageable);
@@ -73,13 +73,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "Where (UPPER(e.annotation) like UPPER(concat('%' ,?1,'%')) " +
             "or UPPER(e.description) like UPPER(concat('%' ,?1,'%'))) " +
             "AND e.eventDate>?2 " +
-            "AND e.paid=?3 " +
+            "AND e.paid IN ?3 " +
             "AND e.category in ?4 " +
             "AND (e.confirmedRequests<e.participantLimit or e.participantLimit=0)" +
             "AND e.state=?5")
     List<Event> filteredEventsOnlyAvailableNoRangeDate(String text,
                                                        LocalDateTime rangeStart,
-                                                       boolean paid,
+                                                       List<Boolean> paids,
                                                        List<Category> categories,
                                                        State state,
                                                        Pageable pageable);
@@ -90,8 +90,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE e.initiator IN ?1 " +
             "AND e.category in ?2 " +
             "AND e.state IN ?3 " +
-            "AND e.eventDate>=?4" +
-            "AND e.eventDate<=?5")
+            "AND e.eventDate>=?4 " +
+            "AND e.eventDate<=?5 ")
     List<Event> forAdmin(List<User> initiators,
                          List<Category> categories,
                          List<State> states,

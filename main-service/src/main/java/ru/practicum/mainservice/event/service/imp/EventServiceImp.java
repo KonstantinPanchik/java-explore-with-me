@@ -151,7 +151,7 @@ public class EventServiceImp implements EventService {
     @Override
     public List<EventShortDto> getPublishedFilteredEvents(String text,
                                                           List<Long> categories,
-                                                          boolean paid,
+                                                          Boolean paid,
                                                           LocalDateTime rangeStart,
                                                           LocalDateTime rangeEnd,
                                                           boolean onlyAvailable,
@@ -166,11 +166,14 @@ public class EventServiceImp implements EventService {
 
         List<Event> events;
 
+        List<Boolean> paids = paid == null ? List.of(true, false) : List.of(paid);
+
+
         if (onlyAvailable) {
             if (rangeStart == null) {
                 events = eventRepository.filteredEventsOnlyAvailableNoRangeDate(text,
                         LocalDateTime.now(),
-                        paid,
+                        paids,
                         categoriesEntities,
                         State.PUBLISHED,
                         pageable);
@@ -179,7 +182,7 @@ public class EventServiceImp implements EventService {
                 events = eventRepository.filteredEventsOnlyAvailable(text,
                         rangeStart,
                         rangeEnd,
-                        paid,
+                        paids,
                         categoriesEntities,
                         State.PUBLISHED,
                         pageable);
@@ -189,7 +192,7 @@ public class EventServiceImp implements EventService {
             if (rangeStart == null) {
                 events = eventRepository.filteredEventsNotOnlyAvailableNoRangeDate(text,
                         LocalDateTime.now(),
-                        paid,
+                        paids,
                         categoriesEntities,
                         State.PUBLISHED,
                         pageable);
@@ -198,7 +201,7 @@ public class EventServiceImp implements EventService {
                 events = eventRepository.filteredEventsNotOnlyAvailable(text,
                         rangeStart,
                         rangeEnd,
-                        paid,
+                        paids,
                         categoriesEntities,
                         State.PUBLISHED,
                         pageable);

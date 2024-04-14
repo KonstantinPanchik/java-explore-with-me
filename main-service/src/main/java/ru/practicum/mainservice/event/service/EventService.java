@@ -24,7 +24,7 @@ public interface EventService {
 
     List<EventShortDto> getPublishedFilteredEvents(String text,
                                                    List<Long> categories,
-                                                   boolean paid,
+                                                   Boolean paid,
                                                    LocalDateTime rangeStart,
                                                    LocalDateTime rangeEnd,
                                                    boolean onlyAvailable,
