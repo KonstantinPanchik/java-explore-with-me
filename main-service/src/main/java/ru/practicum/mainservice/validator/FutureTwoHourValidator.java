@@ -1,7 +1,5 @@
 package ru.practicum.mainservice.validator;
 
-import ru.practicum.mainservice.exception.FutureTwoHourException;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDateTime;
