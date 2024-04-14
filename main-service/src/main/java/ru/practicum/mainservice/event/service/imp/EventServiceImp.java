@@ -266,11 +266,6 @@ public class EventServiceImp implements EventService {
             throw new ConflictException("This action available only for user");
         }
 
-        if (action != null && action.equals(EventUpdateUserState.PUBLISH_EVENT)
-                && event.getPublishedOn().isBefore(event.getEventDate().plusHours(1))) {
-            throw new ConflictException("Published date must be one hour before eventDate");
-        }
-
         if (adminRequest.getLocation() != null) {
             event.setLocation(checkExistOrCreateAndSave(adminRequest.getLocation()));
         }
@@ -280,6 +275,11 @@ public class EventServiceImp implements EventService {
         }
 
         EventMapper.updateEvent(event, adminRequest);
+
+        if (action != null && action.equals(EventUpdateUserState.PUBLISH_EVENT)
+                && event.getPublishedOn().isAfter(event.getEventDate().minusHours(1))) {
+            throw new ConflictException("Published date must be one hour before eventDate");
+        }
 
         eventRepository.save(event);
 
