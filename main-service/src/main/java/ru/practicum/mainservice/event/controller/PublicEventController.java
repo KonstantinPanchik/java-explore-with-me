@@ -42,7 +42,8 @@ public class PublicEventController {
                                                @RequestParam(required = false)
                                                @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
                                                @RequestParam(required = false, defaultValue = "false") Boolean onlyAvailable,
-                                               @RequestParam(name = "sort") EventSort eventSort,
+                                               @RequestParam(required = false, name = "sort",
+                                                       defaultValue = "EVENT_DATE") EventSort eventSort,
                                                @RequestParam(required = false, defaultValue = "0") @Min(0) Integer from,
                                                @RequestParam(required = false, defaultValue = "10") @Min(1) Integer size,
                                                HttpServletRequest request) throws ServletRequestBindingException {
