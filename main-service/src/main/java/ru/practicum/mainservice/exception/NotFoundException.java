@@ -1,6 +1,6 @@
 package ru.practicum.mainservice.exception;
 
-public class NotFoundException extends RuntimeException{
+public class NotFoundException extends RuntimeException {
     public NotFoundException() {
     }
 

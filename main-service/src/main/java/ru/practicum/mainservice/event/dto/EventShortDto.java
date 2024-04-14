@@ -7,6 +7,7 @@ import ru.practicum.mainservice.category.model.Category;
 import ru.practicum.mainservice.user.dto.UserShortDto;
 
 import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class EventShortDto {

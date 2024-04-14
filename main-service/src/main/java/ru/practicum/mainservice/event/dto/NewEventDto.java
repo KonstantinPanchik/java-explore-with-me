@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 import ru.practicum.mainservice.location.Location;
 import ru.practicum.mainservice.validator.FutureTwoHour;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data

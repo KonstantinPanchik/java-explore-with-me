@@ -38,7 +38,4 @@ public class UpdateEventUserRequest {
     private String title;
 
 
-
-
-
 }

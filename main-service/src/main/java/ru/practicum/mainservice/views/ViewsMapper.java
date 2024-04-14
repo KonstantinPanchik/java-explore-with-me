@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class ViewsMapper {
 
-    private static final StatsClient statsClient=new StatsClient();
+    private static final StatsClient statsClient = new StatsClient();
 
 
     public static List<EventShortDto> toEventShortDtosWithViews(Collection<Event> events) {
@@ -37,7 +37,7 @@ public class ViewsMapper {
 
         List<EventFullDto> result = events.stream().map(EventMapper::toFullDto).collect(Collectors.toList());
 
-      setViewsEventFullDtoByMap(result, mapMap);
+        setViewsEventFullDtoByMap(result, mapMap);
 
         return result;
 
@@ -102,7 +102,7 @@ public class ViewsMapper {
     }
 
 
-    private  static void setViewsEventShortDtoByMap(List<EventShortDto> dtos, Map<String, Map<String, ?>> views) {
+    private static void setViewsEventShortDtoByMap(List<EventShortDto> dtos, Map<String, Map<String, ?>> views) {
 
         for (EventShortDto dto : dtos) {
             String key = "/events/" + dto.getId();
@@ -151,7 +151,7 @@ public class ViewsMapper {
         }
     }
 
-    public static  void sendStat(String ip, List<Long> ids) {
+    public static void sendStat(String ip, List<Long> ids) {
         for (long id : ids) {
 
             String app = "ewm-main-service";
@@ -160,8 +160,6 @@ public class ViewsMapper {
             statsClient.postStat(app, uri, ip, LocalDateTime.now());
         }
     }
-
-
 
 
 }

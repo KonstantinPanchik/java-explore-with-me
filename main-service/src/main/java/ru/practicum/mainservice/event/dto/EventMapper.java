@@ -74,9 +74,9 @@ public class EventMapper {
             event.setParticipantLimit(update.getParticipantLimit());
         }
 
-        if (update.getStateAction() != null){
+        if (update.getStateAction() != null) {
 
-            switch (update.getStateAction()){
+            switch (update.getStateAction()) {
 
                 case CANCEL_REVIEW:
                 case REJECT_EVENT:

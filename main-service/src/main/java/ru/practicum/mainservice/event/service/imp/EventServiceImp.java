@@ -46,7 +46,6 @@ public class EventServiceImp implements EventService {
     CategoryRepository categoryRepository;
 
 
-
     //private
     @Override
     public EventFullDto addNewEvent(Long userId, NewEventDto newEventDto) {
@@ -101,9 +100,7 @@ public class EventServiceImp implements EventService {
         eventRepository.save(event);
 
 
-
-
-       return ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+        return ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
     }
 
@@ -128,7 +125,7 @@ public class EventServiceImp implements EventService {
             throw new ConflictException("You can't see this event");
         }
 
-        return   ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+        return ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
     }
 
@@ -254,7 +251,7 @@ public class EventServiceImp implements EventService {
         return ViewsMapper.toEventFullDtosWithViews(events);
     }
 
- @Override
+    @Override
     public EventFullDto updateByAdmin(Long eventId, UpdateEventUserRequest adminRequest) {
 
         Event event = checkExist(eventId);
@@ -266,8 +263,8 @@ public class EventServiceImp implements EventService {
             throw new ConflictException("This action available only for user");
         }
 
-        if(action.equals(EventUpdateUserState.PUBLISH_EVENT)
-                && event.getPublishedOn().isBefore(event.getEventDate().plusHours(1))){
+        if (action.equals(EventUpdateUserState.PUBLISH_EVENT)
+                && event.getPublishedOn().isBefore(event.getEventDate().plusHours(1))) {
             throw new ConflictException("Published date must be one hour before eventDate");
         }
 
@@ -279,7 +276,7 @@ public class EventServiceImp implements EventService {
             event.setCategory(categoryService.get(adminRequest.getCategory()));
         }
 
-        EventMapper.updateEvent(event,adminRequest);
+        EventMapper.updateEvent(event, adminRequest);
 
         eventRepository.save(event);
 

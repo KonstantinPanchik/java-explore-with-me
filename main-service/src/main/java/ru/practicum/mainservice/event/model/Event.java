@@ -76,6 +76,4 @@ public class Event {
     private Location location;
 
 
-
-
 }
