@@ -5,7 +5,6 @@ import lombok.Data;
 import ru.practicum.mainservice.location.Location;
 import ru.practicum.mainservice.validator.FutureTwoHour;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
