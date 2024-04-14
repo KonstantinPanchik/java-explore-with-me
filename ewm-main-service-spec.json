@@ -1137,7 +1137,7 @@
           {
             "description": "Вариант сортировки: по дате события или по количеству просмотров",
             "in": "query",
-            "name": "sort",
+            "name": "eventSort",
             "required": false,
             "schema": {
               "type": "string",

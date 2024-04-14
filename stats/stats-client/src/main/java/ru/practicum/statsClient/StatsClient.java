@@ -1,11 +1,14 @@
 package ru.practicum.statsClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import ru.practicum.statsDto.EndpointHitDto;
 
+import java.net.ConnectException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -52,7 +55,13 @@ public class StatsClient {
                 "uris", uris
         );
 
-        return restTemplate.getForEntity(url, String.class, map);
+        try {
+            return restTemplate.getForEntity(url, String.class, map);
+
+        } catch (RestClientException exception){
+
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("[]");
+        }
     }
 
 }
