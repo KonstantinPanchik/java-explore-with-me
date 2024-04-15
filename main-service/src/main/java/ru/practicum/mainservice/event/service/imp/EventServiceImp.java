@@ -242,7 +242,7 @@ public class EventServiceImp implements EventService {
                                                int size) {
 
         rangeStart = rangeStart == null ? LocalDateTime.now() : rangeStart;
-        rangeEnd = rangeEnd == null ? LocalDateTime.MAX : rangeEnd;
+        rangeEnd = rangeEnd == null ? LocalDateTime.of(3000,12, 12, 9, 0) : rangeEnd;
 
         List<User> usersFromDb = usersFromIdsOrAll(users);
         List<Category> categoriesFromDb = categoryFromIdsOrAll(categories);

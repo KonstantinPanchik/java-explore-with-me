@@ -29,6 +29,7 @@ public class CompilationMapper {
         return Compilation.builder()
                 .pinned(pinned)
                 .title(compilationDto.getTitle())
+                .events(new HashSet<>())
                 .build();
     }
 
