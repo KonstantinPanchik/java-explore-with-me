@@ -1,6 +1,6 @@
 package ru.practicum.mainservice.event.service.imp;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,9 +32,26 @@ import java.util.stream.Collectors;
 
 
 @Service
-@AllArgsConstructor
+
 public class EventServiceImp implements EventService {
 
+    private static final LocalDateTime UNTIL = LocalDateTime.of(3000, 12, 12, 9, 0);
+
+    @Autowired
+    public EventServiceImp(UserService userService,
+                           CategoryService categoryService,
+                           LocationRepository locationRepository,
+                           EventRepository eventRepository,
+                           UserRepository userRepository,
+                           CategoryRepository categoryRepository) {
+
+        this.userService = userService;
+        this.categoryService = categoryService;
+        this.locationRepository = locationRepository;
+        this.eventRepository = eventRepository;
+        this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     UserService userService;
     CategoryService categoryService;
@@ -90,7 +107,7 @@ public class EventServiceImp implements EventService {
 
         EventUpdateUserState action = updateEventUserRequest.getStateAction();
 
-        if (action != null && (action.equals(EventUpdateUserState.CANCEL_REVIEW)
+        if (action != null && (action.equals(EventUpdateUserState.REJECT_EVENT)
                 || action.equals(EventUpdateUserState.PUBLISH_EVENT))) {
             throw new ConflictException("This action available only for admin");
         }
@@ -164,49 +181,37 @@ public class EventServiceImp implements EventService {
 
         List<Category> categoriesEntities = categoryService.getIn(categories);
 
-        List<Event> events;
 
         List<Boolean> paids = paid == null ? List.of(true, false) : List.of(paid);
 
 
-        if (onlyAvailable) {
-            if (rangeStart == null) {
-                events = eventRepository.filteredEventsOnlyAvailableNoRangeDate(text,
-                        LocalDateTime.now(),
-                        paids,
-                        categoriesEntities,
-                        State.PUBLISHED,
-                        pageable);
+        rangeStart = rangeStart == null ? LocalDateTime.now() : rangeStart;
+        rangeEnd = rangeEnd == null ? UNTIL : rangeEnd;
 
-            } else {
-                events = eventRepository.filteredEventsOnlyAvailable(text,
-                        rangeStart,
-                        rangeEnd,
-                        paids,
-                        categoriesEntities,
-                        State.PUBLISHED,
-                        pageable);
-            }
+        List<Event> events;
+
+        if (onlyAvailable) {
+
+            events = eventRepository.filteredEventsOnlyAvailable(text,
+                    rangeStart,
+                    rangeEnd,
+                    paids,
+                    categoriesEntities,
+                    State.PUBLISHED,
+                    pageable);
+
 
         } else {
-            if (rangeStart == null) {
-                events = eventRepository.filteredEventsNotOnlyAvailableNoRangeDate(text,
-                        LocalDateTime.now(),
-                        paids,
-                        categoriesEntities,
-                        State.PUBLISHED,
-                        pageable);
 
-            } else {
-                events = eventRepository.filteredEventsNotOnlyAvailable(text,
-                        rangeStart,
-                        rangeEnd,
-                        paids,
-                        categoriesEntities,
-                        State.PUBLISHED,
-                        pageable);
+            events = eventRepository.filteredEventsNotOnlyAvailable(text,
+                    rangeStart,
+                    rangeEnd,
+                    paids,
+                    categoriesEntities,
+                    State.PUBLISHED,
+                    pageable);
 
-            }
+
         }
 
 
@@ -242,7 +247,7 @@ public class EventServiceImp implements EventService {
                                                int size) {
 
         rangeStart = rangeStart == null ? LocalDateTime.now() : rangeStart;
-        rangeEnd = rangeEnd == null ? LocalDateTime.of(3000,12, 12, 9, 0) : rangeEnd;
+        rangeEnd = rangeEnd == null ? UNTIL : rangeEnd;
 
         List<User> usersFromDb = usersFromIdsOrAll(users);
         List<Category> categoriesFromDb = categoryFromIdsOrAll(categories);

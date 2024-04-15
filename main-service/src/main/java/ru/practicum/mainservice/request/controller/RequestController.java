@@ -26,16 +26,16 @@ public class RequestController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> addRequest(@PathVariable Long userId) {
+    public ResponseEntity<Object> getRequest(@PathVariable Long userId) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(requestService.getRequests(userId));
+        return ResponseEntity.ok(requestService.getRequests(userId));
     }
 
     @PatchMapping("/{requestId}/cancel")
     public ResponseEntity<Object> cancelRequest(@PathVariable Long userId,
                                                 @PathVariable Long requestId) {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(requestService.cancelRequest(userId, requestId));
+        return ResponseEntity.ok(requestService.cancelRequest(userId, requestId));
     }
 
 }
