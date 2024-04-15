@@ -3,6 +3,7 @@ package ru.practicum.statsserver.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.statsDto.EndpointHitDto;
@@ -27,7 +28,7 @@ public class StatController {
     @PostMapping("/hit")
     public ResponseEntity<Object> postHit(@RequestBody EndpointHitDto endpointHitDto) {
         log.info(endpointHitDto.toString());
-        return ResponseEntity.ok(statService.postHit(endpointHitDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(statService.postHit(endpointHitDto));
     }
 
     @GetMapping("/stats")
