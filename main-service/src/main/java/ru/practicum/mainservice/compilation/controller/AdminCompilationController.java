@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.mainservice.compilation.dto.NewCompilationDto;
 import ru.practicum.mainservice.compilation.service.CompilationService;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/admin/compilations")
 @AllArgsConstructor
@@ -21,14 +19,18 @@ public class AdminCompilationController {
 
 
     @PostMapping
-    public ResponseEntity<Object> addCompilation(@RequestBody @Valid NewCompilationDto newCompilation) {
+    public ResponseEntity<Object> addCompilation(@RequestBody
+                                                 @Validated(NewCompilationDto.OnCreate.class)
+                                                         NewCompilationDto newCompilation) {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(compilationService.addCompilation(newCompilation));
     }
 
     @PatchMapping("/{compId}")
     public ResponseEntity<Object> updateCompilation(@PathVariable Long compId,
-                                                    @RequestBody @Valid NewCompilationDto newCompilation) {
+                                                    @RequestBody
+                                                    @Validated(NewCompilationDto.OnUpdate.class)
+                                                            NewCompilationDto newCompilation) {
 
         return ResponseEntity.ok(compilationService.updateCompilation(compId, newCompilation));
     }

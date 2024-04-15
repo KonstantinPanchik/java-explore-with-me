@@ -161,12 +161,10 @@ public class EventServiceImp implements EventService {
             throw new NotFoundException("Event with id=" + eventId + " was not found");
         }
 
-
-        EventFullDto result = viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
-
         viewsMapper.sendStat(ip, eventId);
 
-        return result;
+        return viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+
     }
 
     @Override

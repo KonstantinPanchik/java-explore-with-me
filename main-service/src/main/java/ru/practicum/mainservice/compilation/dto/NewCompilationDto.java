@@ -16,10 +16,15 @@ public class NewCompilationDto {
 
     private Boolean pinned;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+    @NotBlank(groups = OnCreate.class)
+    @Size(min = 3, max = 50, groups = {OnCreate.class, OnUpdate.class})
     private String title;
 
     private Set<Long> events;
 
+    public interface OnCreate {
+    }
+
+    public interface OnUpdate {
+    }
 }
