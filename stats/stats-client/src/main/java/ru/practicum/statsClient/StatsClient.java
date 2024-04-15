@@ -16,13 +16,14 @@ import java.util.Map;
 @Service
 public class StatsClient {
 
-    private static final String HOST = "http://localhost:9090";
+    private final String host;
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public StatsClient() {
-        this.restTemplate = new RestTemplate();
+    public StatsClient(String host, RestTemplate restTemplate) {
+        this.host = host;
+        this.restTemplate = restTemplate;
     }
 
 
@@ -35,14 +36,14 @@ public class StatsClient {
                 .build();
 
         ResponseEntity<EndpointHitDto> entity = restTemplate
-                .postForEntity(HOST + "/hit", endpointHitDto, EndpointHitDto.class);
+                .postForEntity(host + "/hit", endpointHitDto, EndpointHitDto.class);
 
         return entity.getStatusCode().is2xxSuccessful();
     }
 
     public ResponseEntity<String> getStat(LocalDateTime start, LocalDateTime end, List<String> urisList, boolean unique) {
 
-        String url = HOST + "/stats?start={start}&end={end}&unique={unique}&uris={uris}";
+        String url = host + "/stats?start={start}&end={end}&unique={unique}&uris={uris}";
 
         String uris = urisList == null || urisList.isEmpty() ? ""
                 : urisList.stream().reduce((x, y) -> x + "," + y).get();

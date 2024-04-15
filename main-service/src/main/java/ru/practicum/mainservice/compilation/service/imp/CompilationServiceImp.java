@@ -14,6 +14,7 @@ import ru.practicum.mainservice.compilation.service.CompilationService;
 import ru.practicum.mainservice.event.model.Event;
 import ru.practicum.mainservice.event.repository.EventRepository;
 import ru.practicum.mainservice.exception.NotFoundException;
+import ru.practicum.mainservice.views.ViewsMapper;
 
 import java.util.List;
 import java.util.Set;
@@ -25,11 +26,13 @@ public class CompilationServiceImp implements CompilationService {
 
     private CompilationRepository compilationRepository;
     private EventRepository eventRepository;
+    private ViewsMapper viewsMapper;
 
     @Autowired
-    public CompilationServiceImp(CompilationRepository compilationRepository, EventRepository eventRepository) {
+    public CompilationServiceImp(CompilationRepository compilationRepository, EventRepository eventRepository, ViewsMapper viewsMapper) {
         this.compilationRepository = compilationRepository;
         this.eventRepository = eventRepository;
+        this.viewsMapper = viewsMapper;
     }
 
     @Override
@@ -41,13 +44,16 @@ public class CompilationServiceImp implements CompilationService {
 
         List<Compilation> compilations = compilationRepository.findAllByPinnedIn(pinneds, pageable);
 
-        return compilations.stream().map(CompilationMapper::toDto).collect(Collectors.toList());
+        return compilations
+                .stream()
+                .map(compilation -> CompilationMapper.toDto(compilation, viewsMapper))
+                .collect(Collectors.toList());
     }
 
     @Override
     public CompilationDto getCompilationById(Long compId) {
         Compilation compilation = getCompilationByIdOrThrow(compId);
-        return CompilationMapper.toDto(compilation);
+        return CompilationMapper.toDto(compilation, viewsMapper);
     }
 
     @Override
@@ -87,7 +93,7 @@ public class CompilationServiceImp implements CompilationService {
 
         compilation = compilationRepository.save(compilation);
 
-        return CompilationMapper.toDto(compilation);
+        return CompilationMapper.toDto(compilation, viewsMapper);
     }
 
     private Compilation getCompilationByIdOrThrow(Long compId) {

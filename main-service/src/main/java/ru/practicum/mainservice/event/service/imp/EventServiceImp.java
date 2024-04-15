@@ -43,7 +43,8 @@ public class EventServiceImp implements EventService {
                            LocationRepository locationRepository,
                            EventRepository eventRepository,
                            UserRepository userRepository,
-                           CategoryRepository categoryRepository) {
+                           CategoryRepository categoryRepository,
+                           ViewsMapper viewsMapper) {
 
         this.userService = userService;
         this.categoryService = categoryService;
@@ -51,6 +52,7 @@ public class EventServiceImp implements EventService {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
+        this.viewsMapper = viewsMapper;
     }
 
     UserService userService;
@@ -61,6 +63,8 @@ public class EventServiceImp implements EventService {
 
     UserRepository userRepository;
     CategoryRepository categoryRepository;
+
+    ViewsMapper viewsMapper;
 
 
     //private
@@ -117,7 +121,7 @@ public class EventServiceImp implements EventService {
         eventRepository.save(event);
 
 
-        return ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+        return viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
     }
 
@@ -129,7 +133,7 @@ public class EventServiceImp implements EventService {
 
         List<Event> events = eventRepository.findAllByInitiator(initiator, pageable);
 
-        return ViewsMapper.toEventShortDtosWithViews(events);
+        return viewsMapper.toEventShortDtosWithViews(events);
     }
 
     @Override
@@ -142,7 +146,7 @@ public class EventServiceImp implements EventService {
             throw new ConflictException("You can't see this event");
         }
 
-        return ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+        return viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
     }
 
@@ -158,9 +162,9 @@ public class EventServiceImp implements EventService {
         }
 
 
-        EventFullDto result = ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+        EventFullDto result = viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
-        ViewsMapper.sendStat(ip, eventId);
+        viewsMapper.sendStat(ip, eventId);
 
         return result;
     }
@@ -215,9 +219,9 @@ public class EventServiceImp implements EventService {
         }
 
 
-        List<EventShortDto> eventShortDtos = ViewsMapper.toEventShortDtosWithViews(events);
+        List<EventShortDto> eventShortDtos = viewsMapper.toEventShortDtosWithViews(events);
 
-        ViewsMapper.sendStat(ip, events.stream().map(Event::getId).collect(Collectors.toList()));
+        viewsMapper.sendStat(ip, events.stream().map(Event::getId).collect(Collectors.toList()));
 
         switch (eventSort) {
 
@@ -259,7 +263,7 @@ public class EventServiceImp implements EventService {
                 rangeStart, rangeEnd, pageable);
 
 
-        return ViewsMapper.toEventFullDtosWithViews(events);
+        return viewsMapper.toEventFullDtosWithViews(events);
     }
 
     @Override
@@ -295,7 +299,7 @@ public class EventServiceImp implements EventService {
 
         eventRepository.save(event);
 
-        return ViewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
+        return viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
 
     }

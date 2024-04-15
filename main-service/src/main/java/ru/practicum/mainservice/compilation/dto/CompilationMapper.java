@@ -10,9 +10,9 @@ import java.util.Set;
 public class CompilationMapper {
 
 
-    public static CompilationDto toDto(Compilation compilation) {
+    public static CompilationDto toDto(Compilation compilation, ViewsMapper viewsMapper) {
 
-        Set<EventShortDto> eventShortDtoList = new HashSet<>(ViewsMapper
+        Set<EventShortDto> eventShortDtoList = new HashSet<>(viewsMapper
                 .toEventShortDtosWithViews(compilation.getEvents()));
 
         return CompilationDto.builder()

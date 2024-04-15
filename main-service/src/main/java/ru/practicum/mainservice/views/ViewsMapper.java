@@ -3,6 +3,8 @@ package ru.practicum.mainservice.views;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.practicum.mainservice.event.dto.EventFullDto;
 import ru.practicum.mainservice.event.dto.EventMapper;
 import ru.practicum.mainservice.event.dto.EventShortDto;
@@ -13,13 +15,17 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@Service
 public class ViewsMapper {
 
-    private static final StatsClient statsClient = new StatsClient();
+    private final StatsClient statsClient;
 
+    @Autowired
+    public ViewsMapper(StatsClient statsClient) {
+        this.statsClient = statsClient;
+    }
 
-    public static List<EventShortDto> toEventShortDtosWithViews(Collection<Event> events) {
+    public List<EventShortDto> toEventShortDtosWithViews(Collection<Event> events) {
 
         Map<String, Map<String, ?>> mapMap = toMap(events);
 
@@ -31,7 +37,7 @@ public class ViewsMapper {
 
     }
 
-    public static List<EventFullDto> toEventFullDtosWithViews(Collection<Event> events) {
+    public List<EventFullDto> toEventFullDtosWithViews(Collection<Event> events) {
 
         Map<String, Map<String, ?>> mapMap = toMap(events);
 
@@ -44,7 +50,7 @@ public class ViewsMapper {
     }
 
 
-    private static List<Map<String, ?>> getViews(Collection<Event> events) {
+    private List<Map<String, ?>> getViews(Collection<Event> events) {
 
         Comparator<LocalDateTime> localDateTimeComparator =
                 (o1, o2) -> {
@@ -85,7 +91,7 @@ public class ViewsMapper {
     }
 
 
-    private static Map<String, Map<String, ?>> toMap(Collection<Event> events) {
+    private Map<String, Map<String, ?>> toMap(Collection<Event> events) {
 
         List<Map<String, ?>> list = getViews(events);
 
@@ -102,7 +108,7 @@ public class ViewsMapper {
     }
 
 
-    private static void setViewsEventShortDtoByMap(List<EventShortDto> dtos, Map<String, Map<String, ?>> views) {
+    private void setViewsEventShortDtoByMap(List<EventShortDto> dtos, Map<String, Map<String, ?>> views) {
 
         for (EventShortDto dto : dtos) {
             String key = "/events/" + dto.getId();
@@ -117,7 +123,7 @@ public class ViewsMapper {
         }
     }
 
-    private static void setViewsEventFullDtoByMap(List<EventFullDto> dtos, Map<String, Map<String, ?>> views) {
+    private void setViewsEventFullDtoByMap(List<EventFullDto> dtos, Map<String, Map<String, ?>> views) {
 
         for (EventFullDto dto : dtos) {
             setViewsEventFullDtoByMap(dto, views);
@@ -126,7 +132,7 @@ public class ViewsMapper {
     }
 
 
-    private static void setViewsEventFullDtoByMap(EventFullDto eventFullDto, Map<String, Map<String, ?>> views) {
+    private void setViewsEventFullDtoByMap(EventFullDto eventFullDto, Map<String, Map<String, ?>> views) {
 
         String key = "/events/" + eventFullDto.getId();
 
@@ -141,7 +147,7 @@ public class ViewsMapper {
     }
 
 
-    public static void sendStat(String ip, long... ids) {
+    public void sendStat(String ip, long... ids) {
         for (long id : ids) {
 
             String app = "ewm-main-service";
@@ -151,7 +157,7 @@ public class ViewsMapper {
         }
     }
 
-    public static void sendStat(String ip, List<Long> ids) {
+    public void sendStat(String ip, List<Long> ids) {
         for (long id : ids) {
 
             String app = "ewm-main-service";

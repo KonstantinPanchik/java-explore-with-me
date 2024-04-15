@@ -8,12 +8,9 @@ services:
     depends_on:
       - stats-db
     environment:
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/statsDb
-    - SPRING_DATASOURCE_USERNAME=stat
-    - SPRING_DATASOURCE_PASSWORD=1234
-
-
-
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/statsDb
+      - SPRING_DATASOURCE_USERNAME=stat
+      - SPRING_DATASOURCE_PASSWORD=1234
 
   stats-db:
     image: postgres:15-alpine
@@ -36,9 +33,10 @@ services:
       - stats-server
       - ewm-db
     environment:
-    - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/statsDb
-    - SPRING_DATASOURCE_USERNAME=stat
-    - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/mainDb
+      - SPRING_DATASOURCE_USERNAME=stat
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - STAT_CLIENT_URL=http://stats-server:9090
 
   ewm-db:
     image: postgres:15-alpine
