@@ -53,37 +53,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                             State state,
                                             Pageable pageable);
 
-    @Query("SELECT e " +
-            "FROM Event as e " +
-            "Where (UPPER(e.annotation) like UPPER(concat('%' ,?1,'%'))" +
-            "or UPPER(e.description) like UPPER(concat('%' ,?1,'%'))) " +
-            "AND e.eventDate>?2  " +
-            "AND e.paid IN ?3 " +
-            "AND e.category in ?4 " +
-            "AND e.state=?5")
-    List<Event> filteredEventsNotOnlyAvailableNoRangeDate(String text,
-                                                          LocalDateTime rangeStart,
-                                                          List<Boolean> paids,
-                                                          List<Category> categories,
-                                                          State state,
-                                                          Pageable pageable);
-
-    @Query("SELECT e " +
-            "FROM Event as e " +
-            "Where (UPPER(e.annotation) like UPPER(concat('%' ,?1,'%')) " +
-            "or UPPER(e.description) like UPPER(concat('%' ,?1,'%'))) " +
-            "AND e.eventDate>?2 " +
-            "AND e.paid IN ?3 " +
-            "AND e.category in ?4 " +
-            "AND (e.confirmedRequests<e.participantLimit or e.participantLimit=0)" +
-            "AND e.state=?5")
-    List<Event> filteredEventsOnlyAvailableNoRangeDate(String text,
-                                                       LocalDateTime rangeStart,
-                                                       List<Boolean> paids,
-                                                       List<Category> categories,
-                                                       State state,
-                                                       Pageable pageable);
-
 
     @Query("SELECT e " +
             "FROM Event as e " +

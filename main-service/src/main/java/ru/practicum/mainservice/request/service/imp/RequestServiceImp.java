@@ -79,8 +79,8 @@ public class RequestServiceImp implements RequestService {
             throw new ConflictException("ParticipantLimit is over");
         }
 
-        RequestStatus requestStatus = event.isRequestModeration()
-                ? RequestStatus.PENDING : RequestStatus.CONFIRMED;
+        RequestStatus requestStatus = !event.isRequestModeration() || event.getParticipantLimit() == 0
+                ? RequestStatus.CONFIRMED : RequestStatus.PENDING;
 
         Request newRequest = Request.builder()
                 .requester(requester)
