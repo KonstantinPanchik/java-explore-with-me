@@ -25,9 +25,10 @@ public class CompilationMapper {
 
     public static Compilation fromDto(NewCompilationDto compilationDto) {
 
+        boolean pinned = (compilationDto.getPinned() == null) ? false : compilationDto.getPinned();
         return Compilation.builder()
+                .pinned(pinned)
                 .title(compilationDto.getTitle())
-                .pinned(compilationDto.getPinned())
                 .build();
     }
 

@@ -10,7 +10,7 @@ public interface CategoryService {
 
     Category update(Category category, Long id);
 
-    String delete(Long id);
+    void delete(Long id);
 
     List<Category> getAll(int from, int size);
 

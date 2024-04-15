@@ -15,7 +15,6 @@ import ru.practicum.mainservice.event.model.Event;
 import ru.practicum.mainservice.event.repository.EventRepository;
 import ru.practicum.mainservice.exception.NotFoundException;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -56,15 +55,7 @@ public class CompilationServiceImp implements CompilationService {
 
         Compilation compilation = CompilationMapper.fromDto(compilationDto);
 
-        List<Event> events = eventRepository.findAllById(compilationDto.getEvents());
-
-        Set<Event> eventsForCompilations = events.stream().collect(Collectors.toSet());
-
-        compilation.setEvents(eventsForCompilations);
-
-        compilation = compilationRepository.save(compilation);
-
-        return CompilationMapper.toDto(compilation);
+        return saveEvents(compilationDto, compilation);
     }
 
     @Override
@@ -80,9 +71,19 @@ public class CompilationServiceImp implements CompilationService {
 
         CompilationMapper.updateFromDto(compilation, compilationDto);
 
-        Set<Event> eventsForCompilations = new HashSet<>(eventRepository.findAllById(compilationDto.getEvents()));
+        return saveEvents(compilationDto, compilation);
+    }
 
-        compilation.setEvents(eventsForCompilations);
+    private CompilationDto saveEvents(NewCompilationDto compilationDto, Compilation compilation) {
+
+        if (compilationDto.getEvents() != null) {
+
+            List<Event> events = eventRepository.findAllById(compilationDto.getEvents());
+
+            Set<Event> eventsForCompilations = events.stream().collect(Collectors.toSet());
+
+            compilation.setEvents(eventsForCompilations);
+        }
 
         compilation = compilationRepository.save(compilation);
 

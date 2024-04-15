@@ -42,14 +42,13 @@ public class CategoryServiceImp implements CategoryService {
     }
 
     @Override
-    public String delete(Long id) {
+    public void delete(Long id) {
         Category category = get(id);
         log.debug("Category found");
 
         try {
             categoryRepository.delete(category);
             log.debug("Category deleted");
-            return "Категория удалена";
 
         } catch (Throwable throwable) {
             log.debug("Category conflict");

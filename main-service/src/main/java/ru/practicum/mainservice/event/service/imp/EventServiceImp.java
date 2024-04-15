@@ -262,6 +262,10 @@ public class EventServiceImp implements EventService {
 
         Event event = checkExist(eventId);
 
+        if (!event.getState().equals(State.PENDING)) {
+            throw new ConflictException("This state is already " + event.getState());
+        }
+
         EventUpdateUserState action = adminRequest.getStateAction();
 
         if (action != null && (action.equals(EventUpdateUserState.CANCEL_REVIEW)
