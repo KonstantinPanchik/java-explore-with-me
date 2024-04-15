@@ -146,18 +146,7 @@ public class ViewsMapper {
 
     }
 
-
     public void sendStat(String ip, long... ids) {
-        for (long id : ids) {
-
-            String app = "ewm-main-service";
-            String uri = "/events/" + id;
-
-            statsClient.postStat(app, uri, ip, LocalDateTime.now());
-        }
-    }
-
-    public void sendStat(String ip, List<Long> ids) {
         for (long id : ids) {
 
             String app = "ewm-main-service";
