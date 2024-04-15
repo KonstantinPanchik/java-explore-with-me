@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -162,6 +163,12 @@ public class EventServiceImp implements EventService {
         }
 
         viewsMapper.sendStat(ip, eventId);
+
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+
+        }
 
         return viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
 
