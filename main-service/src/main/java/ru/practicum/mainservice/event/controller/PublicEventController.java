@@ -52,7 +52,7 @@ public class PublicEventController {
 
             throw new ServletRequestBindingException("[rangeStart-rangeEnd]");
         }
-
+        String uri = request.getRequestURI();
         String ip = request.getRemoteAddr();
 
         return ResponseEntity.ok(eventService.getPublishedFilteredEvents(text,
@@ -64,7 +64,8 @@ public class PublicEventController {
                 eventSort,
                 from,
                 size,
-                ip));
+                ip,
+                uri));
     }
 
 

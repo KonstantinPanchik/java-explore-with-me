@@ -31,7 +31,8 @@ public interface EventService {
                                                    EventSort eventSort,
                                                    Integer from,
                                                    Integer size,
-                                                   String ip);
+                                                   String ip,
+                                                   String uri);
 
 
     List<EventFullDto> getEventsByAdmin(List<Long> users,

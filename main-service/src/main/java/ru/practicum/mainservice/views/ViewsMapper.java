@@ -167,5 +167,13 @@ public class ViewsMapper {
         }
     }
 
+    public void sendStat(String ip, String uri) {
+
+        String app = "ewm-main-service";
+
+        statsClient.postStat(app, uri, ip, LocalDateTime.now());
+
+    }
+
 
 }

@@ -185,7 +185,8 @@ public class EventServiceImp implements EventService {
                                                           EventSort eventSort,
                                                           Integer from,
                                                           Integer size,
-                                                          String ip) {
+                                                          String ip,
+                                                          String uri) {
 
         Pageable pageable = PageRequest.of(from / size, size);
 
@@ -227,7 +228,7 @@ public class EventServiceImp implements EventService {
 
         List<EventShortDto> eventShortDtos = viewsMapper.toEventShortDtosWithViews(events);
 
-        viewsMapper.sendStat(ip, events.stream().map(Event::getId).collect(Collectors.toList()));
+        viewsMapper.sendStat(ip, uri);
 
         switch (eventSort) {
 
