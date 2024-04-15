@@ -1,5 +1,6 @@
 package ru.practicum.mainservice.event.service.imp;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
 
 
 @Service
-
+@Slf4j
 public class EventServiceImp implements EventService {
 
     private static final LocalDateTime UNTIL = LocalDateTime.of(3000, 12, 12, 9, 0);
@@ -167,7 +168,7 @@ public class EventServiceImp implements EventService {
         try {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
-
+            log.info(e.getMessage());
         }
 
         return viewsMapper.toEventFullDtosWithViews(List.of(event)).get(0);
