@@ -56,7 +56,9 @@ public class CompilationServiceImp implements CompilationService {
 
         Compilation compilation = CompilationMapper.fromDto(compilationDto);
 
-        Set<Event> eventsForCompilations = new HashSet<>(eventRepository.findAllById(compilationDto.getEvents()));
+        List<Event> events = eventRepository.findAllById(compilationDto.getEvents());
+
+        Set<Event> eventsForCompilations = events.stream().collect(Collectors.toSet());
 
         compilation.setEvents(eventsForCompilations);
 

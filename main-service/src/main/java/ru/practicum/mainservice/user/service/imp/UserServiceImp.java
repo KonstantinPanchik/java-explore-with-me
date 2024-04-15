@@ -22,9 +22,13 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<User> getAll(int from, int size) {
-        return userRepository.findAll(PageRequest.of(from / size, size)).stream()
-                .collect(Collectors.toList());
+    public List<User> getAll(int from, int size, List<Long> ids) {
+        if (ids == null || ids.isEmpty() || ids.get(0) == 0) {
+            return userRepository.findAll(PageRequest.of(from / size, size)).stream()
+                    .collect(Collectors.toList());
+        } else {
+            return userRepository.findAllById(ids);
+        }
     }
 
     @Override

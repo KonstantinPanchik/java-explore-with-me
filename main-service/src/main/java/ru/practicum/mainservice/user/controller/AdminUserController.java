@@ -10,6 +10,7 @@ import ru.practicum.mainservice.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import java.util.List;
 
 @RestController
 @RequestMapping("/${admin.path}/users")
@@ -25,9 +26,10 @@ public class AdminUserController {
 
     @GetMapping
     public ResponseEntity<Object> getAllUsers(@RequestParam(required = false, defaultValue = "0") @Min(0) Integer from,
-                                              @RequestParam(required = false, defaultValue = "10") @Min(1) Integer size) {
+                                              @RequestParam(required = false, defaultValue = "10") @Min(1) Integer size,
+                                              @RequestParam(required = false) List<Long> ids) {
 
-        return ResponseEntity.ok(userService.getAll(from, size));
+        return ResponseEntity.ok(userService.getAll(from, size, ids));
     }
 
     @PostMapping

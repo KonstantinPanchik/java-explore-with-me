@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "locations")
@@ -32,4 +33,17 @@ public class Location {
     @NotNull
     @Column(name = "lon")
     private float lon;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Float.compare(location.lat, lat) == 0 && Float.compare(location.lon, lon) == 0 && id.equals(location.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, lat, lon);
+    }
 }

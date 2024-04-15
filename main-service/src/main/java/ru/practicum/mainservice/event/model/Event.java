@@ -12,6 +12,7 @@ import ru.practicum.mainservice.user.model.User;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -76,4 +77,30 @@ public class Event {
     private Location location;
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return confirmedRequests == event.confirmedRequests
+                && paid == event.paid
+                && participantLimit == event.participantLimit
+                && requestModeration == event.requestModeration
+                && id.equals(event.id)
+                && annotation.equals(event.annotation)
+                && createdOn.equals(event.createdOn)
+                && description.equals(event.description)
+                && eventDate.equals(event.eventDate)
+                && publishedOn.equals(event.publishedOn)
+                && state == event.state
+                && title.equals(event.title)
+                && Objects.equals(initiator.getId(), event.initiator.getId())
+                && Objects.equals(category.getId(), event.category.getId())
+                && location.equals(event.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, annotation, createdOn, confirmedRequests, description, eventDate, paid, participantLimit, publishedOn, requestModeration, state, title, initiator, category, location);
+    }
 }

@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS requests
 
 CREATE TABLE IF NOT EXISTS compilation
 (
-    id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY UNIQUE,
+    compilation_id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY UNIQUE,
     pinned BOOLEAN     NOT NULL,
     title  VARCHAR(50) NOT NULL,
     UNIQUE(title)
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS compilation_event
     id             BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     event_id       BIGINT NOT NULL,
     compilation_id BIGINT NOT NULL,
-    CONSTRAINT fk_event_compilation_to_event FOREIGN KEY (event_id) REFERENCES events (event_id) ON UPDATE CASCADE,
-    CONSTRAINT fk_event_compilation_to_compilation FOREIGN KEY (compilation_id) REFERENCES compilation (id) ON UPDATE CASCADE
+    CONSTRAINT fk_event_compilation_to_event FOREIGN KEY (event_id) REFERENCES events (event_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT fk_event_compilation_to_compilation FOREIGN KEY (compilation_id) REFERENCES compilation (compilation_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
