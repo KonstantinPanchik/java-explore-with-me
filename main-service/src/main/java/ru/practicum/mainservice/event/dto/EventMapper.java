@@ -28,7 +28,7 @@ public class EventMapper {
 
         boolean paid = Optional.ofNullable(newEventDto.getPaid()).orElse(false);
         boolean requestModeration = Optional
-                .ofNullable(newEventDto.getRequestModeration()).orElse(false);
+                .ofNullable(newEventDto.getRequestModeration()).orElse(true);
 
         return Event.builder()
                 .annotation(newEventDto.getAnnotation())

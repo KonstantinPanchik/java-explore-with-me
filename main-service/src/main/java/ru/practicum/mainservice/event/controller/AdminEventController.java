@@ -28,12 +28,12 @@ public class AdminEventController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getEventsByAdmin(@RequestParam List<Long> users,
-                                                   @RequestParam List<State> states,
-                                                   @RequestParam List<Long> categories,
-                                                   @RequestParam
+    public ResponseEntity<Object> getEventsByAdmin(@RequestParam(required = false) List<Long> users,
+                                                   @RequestParam(required = false) List<State> states,
+                                                   @RequestParam(required = false) List<Long> categories,
+                                                   @RequestParam(required = false)
                                                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeStart,
-                                                   @RequestParam
+                                                   @RequestParam(required = false)
                                                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime rangeEnd,
                                                    @RequestParam(required = false, defaultValue = "0")
                                                    @Min(0) Integer from,
