@@ -1,8 +1,10 @@
 package ru.practicum.statsClient;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import ru.practicum.statsDto.EndpointHitDto;
 
@@ -14,13 +16,14 @@ import java.util.Map;
 @Service
 public class StatsClient {
 
-    private static final String HOST = "http://localhost:9090";
+    private final String host;
 
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Autowired
-    public StatsClient() {
-        this.restTemplate = new RestTemplate();
+    public StatsClient(String host, RestTemplate restTemplate) {
+        this.host = host;
+        this.restTemplate = restTemplate;
     }
 
 
@@ -33,14 +36,14 @@ public class StatsClient {
                 .build();
 
         ResponseEntity<EndpointHitDto> entity = restTemplate
-                .postForEntity(HOST + "/hit", endpointHitDto, EndpointHitDto.class);
+                .postForEntity(host + "/hit", endpointHitDto, EndpointHitDto.class);
 
         return entity.getStatusCode().is2xxSuccessful();
     }
 
     public ResponseEntity<String> getStat(LocalDateTime start, LocalDateTime end, List<String> urisList, boolean unique) {
 
-        String url = HOST + "/stats?start={start}&end={end}&unique={unique}&uris={uris}";
+        String url = host + "/stats?start={start}&end={end}&unique={unique}&uris={uris}";
 
         String uris = urisList == null || urisList.isEmpty() ? ""
                 : urisList.stream().reduce((x, y) -> x + "," + y).get();
@@ -52,7 +55,13 @@ public class StatsClient {
                 "uris", uris
         );
 
-        return restTemplate.getForEntity(url, String.class, map);
+        try {
+            return restTemplate.getForEntity(url, String.class, map);
+
+        } catch (RestClientException exception) {
+
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body("[]");
+        }
     }
 
 }

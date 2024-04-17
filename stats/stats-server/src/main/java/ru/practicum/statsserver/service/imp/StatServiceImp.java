@@ -30,6 +30,9 @@ public class StatServiceImp implements StatService {
 
     @Override
     public List<ViewStats> getStat(LocalDateTime start, LocalDateTime end, boolean unique, List<String> uris) {
+        if (!end.isAfter(start)) {
+            throw new RuntimeException("end date must be after start date");
+        }
 
         if (uris == null || uris.isEmpty()) {
             return unique
