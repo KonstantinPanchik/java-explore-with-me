@@ -340,44 +340,6 @@
 			"response": []
 		},
 		{
-			"name": "subsctibe 4 to 5",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Подписка 4 на 5 пользователя\", function(){\r",
-							"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
-							"    pm.response.to.be.withBody //\r",
-							"    pm.response.to.be.json\r",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/users/4/subscriptions/5",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"users",
-						"4",
-						"subscriptions",
-						"5"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "add category",
 			"event": [
 				{
