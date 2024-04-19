@@ -311,6 +311,24 @@ public class EventServiceImp implements EventService {
 
     }
 
+    @Override
+    public List<EventShortDto> getBloggersEvents(Long userId,
+                                                 Integer from,
+                                                 Integer size,
+                                                 LocalDateTime start,
+                                                 LocalDateTime end) {
+
+        start = start == null ? LocalDateTime.now() : start;
+        end = end == null ? UNTIL : end;
+
+        User user = userService.getById(userId);
+
+        Pageable pageable = PageRequest.of(from / size, size, Sort.by("eventDate"));
+
+        List<Event> events = eventRepository.bloggersEvents(user.getSubscriptions(), start, end, pageable);
+
+        return viewsMapper.toEventShortDtosWithViews(events);
+    }
 
     private List<User> usersFromIdsOrAll(List<Long> users) {
         if (users == null || users.isEmpty() || users.get(0) == 0) {

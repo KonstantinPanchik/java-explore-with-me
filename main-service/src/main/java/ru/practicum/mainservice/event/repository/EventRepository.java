@@ -9,6 +9,7 @@ import ru.practicum.mainservice.event.model.State;
 import ru.practicum.mainservice.user.model.User;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -67,5 +68,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                          LocalDateTime rangeStart,
                          LocalDateTime rangeEnd,
                          Pageable pageable);
+
+
+    @Query("SELECT e " +
+            "FROM Event AS e " +
+            "WHERE e.initiator IN ?1 " +
+            "AND e.eventDate>?2 " +
+            "AND e.eventDate<?3 " +
+            "AND e.state='PUBLISHED' ")
+    List<Event> bloggersEvents(Collection<User> bloggers, LocalDateTime start, LocalDateTime end, Pageable pageable);
 
 }
