@@ -615,52 +615,6 @@
 			"response": []
 		},
 		{
-			"name": "Publish sec ev",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Публикация второго события\", function(){\r",
-							"    pm.response.to.be.ok //статус ок\r",
-							"    pm.response.to.be.withBody //\r",
-							"    pm.response.to.be.json\r",
-							"})"
-						],
-						"type": "text/javascript",
-						"packages": {}
-					}
-				}
-			],
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"stateAction\":\"PUBLISH_EVENT\"}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/admin/events/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"admin",
-						"events",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Publish third ev",
 			"event": [
 				{
