@@ -3,7 +3,10 @@ package ru.practicum.mainservice.user.service.imp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.practicum.mainservice.exception.ConflictException;
 import ru.practicum.mainservice.exception.NotFoundException;
+import ru.practicum.mainservice.user.dto.UserMapper;
+import ru.practicum.mainservice.user.dto.UserSubscribeDto;
 import ru.practicum.mainservice.user.model.User;
 import ru.practicum.mainservice.user.repository.UserRepository;
 import ru.practicum.mainservice.user.service.UserService;
@@ -15,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserServiceImp implements UserService {
 
     UserRepository userRepository;
+
 
     @Autowired
     public UserServiceImp(UserRepository userRepository) {
@@ -47,4 +51,41 @@ public class UserServiceImp implements UserService {
     public User addUser(User user) {
         return userRepository.save(user);
     }
+
+    @Override
+    public UserSubscribeDto subscribe(Long userId, Long bloggerId) {
+
+        User user = getById(userId);
+        User blogger = getById(bloggerId);
+
+        if (user.equals(blogger)) {
+            throw new ConflictException("You can't subscribe your account");
+        }
+
+        user.getSubscriptions().add(blogger);
+
+        userRepository.save(user);
+
+        return UserMapper.toSubscribeDto(user);
+    }
+
+    @Override
+    public UserSubscribeDto unSubscribe(Long userId, Long bloggerId) {
+
+        User user = getById(userId);
+        User blogger = getById(bloggerId);
+
+        boolean isSubscribe = user.getSubscriptions().contains(blogger);
+
+        if (isSubscribe) {
+            user.getSubscriptions().remove(blogger);
+        } else {
+            throw new NotFoundException("You are not subscribe on this user");
+        }
+
+        userRepository.save(user);
+
+        return UserMapper.toSubscribeDto(user);
+    }
+
 }

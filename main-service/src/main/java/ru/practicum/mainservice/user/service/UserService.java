@@ -1,5 +1,6 @@
 package ru.practicum.mainservice.user.service;
 
+import ru.practicum.mainservice.user.dto.UserSubscribeDto;
 import ru.practicum.mainservice.user.model.User;
 
 import java.util.List;
@@ -13,4 +14,9 @@ public interface UserService {
     void deleteUser(Long userId);
 
     User addUser(User user);
+
+    UserSubscribeDto subscribe(Long userId, Long bloggerId);
+
+    UserSubscribeDto unSubscribe(Long userId, Long bloggerId);
+
 }

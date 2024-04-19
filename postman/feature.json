@@ -1,0 +1,915 @@
+{
+	"info": {
+		"_postman_id": "2ff10bd8-ab5c-4db6-8d9a-81d2c5c6228c",
+		"name": "UserSubscribe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30794152"
+	},
+	"item": [
+		{
+			"name": "add blogger",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание первого блогера\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"first.blogger@mycheck.ru\",\r\n    \"name\": \"Первый Блоггер\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add blogger 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание второго блогера\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"second.blogger@mycheck.ru\",\r\n    \"name\": \"Второй Блоггер\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add subscriber",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание третьего пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"podpischuk_odin@mycheck.ru\",\r\n    \"name\": \"Первый Подписчик\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add subscriber 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание четвертого пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"podpischuk_dva@mycheck.ru\",\r\n    \"name\": \"Первый Подписчик\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subsctibe 3 to 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Подписка 3 на 1 пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201]); //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/subscriptions/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"subscriptions",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subsctibe 3 to 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Подписка 3 на 2 пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/subscriptions/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"subscriptions",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subsctibe 4 to 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Подписка 4 на 2 пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/subscriptions/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"subscriptions",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subsctibe 4 to 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Подписка 4 на 4 пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/subscriptions/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"subscriptions",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subsctibe 4 to 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Подписка 4 на 5 пользователя\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([404]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/subscriptions/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"subscriptions",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание категории\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Концерты реперов\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Event by firs blogger",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание первого события\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"annotation\": \"Событие созданное первым блогером\",\r\n  \"category\": 1,\r\n  \"description\": \"Событие созданное первым блогером\",\r\n  \"eventDate\": \"2024-08-16 17:10:05\",\r\n  \"location\": {\r\n    \"lat\": 50.7563,\r\n    \"lon\": 50.6121\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Событие созданное первым блогером\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Event by firs blogger 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание второго события\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"annotation\": \"Второе событие созданное первым блогером\",\r\n  \"category\": 1,\r\n  \"description\": \"Второе событие созданное первым блогером\",\r\n  \"eventDate\": \"2024-08-19 17:10:05\",\r\n  \"location\": {\r\n    \"lat\": 50.7563,\r\n    \"lon\": 50.6121\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Второе событие созданное первым блогером\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/1/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Event by sec blogger",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание третьего события\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"annotation\": \"Третье событие созданное вторым блогером\",\r\n  \"category\": 1,\r\n  \"description\": \"Третье событие созданное вторым блогером\",\r\n  \"eventDate\": \"2024-08-21 17:10:05\",\r\n  \"location\": {\r\n    \"lat\": 50.7563,\r\n    \"lon\": 50.6121\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Третье событие созданное вторым блогером\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/2/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"2",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add Event by sec blogger 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Создание четвертого события\", function(){\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"annotation\": \"Четвертое событие созданное вторым блогером\",\r\n  \"category\": 1,\r\n  \"description\": \"Четвертое событие созданное вторым блогером\",\r\n  \"eventDate\": \"2024-08-23 14:10:05\",\r\n  \"location\": {\r\n    \"lat\": 50.7563,\r\n    \"lon\": 50.6121\r\n  },\r\n  \"paid\": true,\r\n  \"participantLimit\": 0,\r\n  \"requestModeration\": false,\r\n  \"title\": \"Четвертое событие созданное вторым блогером\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/2/events",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"2",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish first ev",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Публикация первого события\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"stateAction\":\"PUBLISH_EVENT\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/events/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"events",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish sec ev",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Публикация второго события\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"stateAction\":\"PUBLISH_EVENT\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/events/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"events",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publish third ev",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Публикация третьего события\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"stateAction\":\"PUBLISH_EVENT\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/events/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"events",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events blogers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получение евентов первого и второго пользователя\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events blogers startDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получение евентов первого и второго пользователя с датой начала\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/subscriptions?rangeStart=2024-08-17 15:15:15",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"subscriptions"
+					],
+					"query": [
+						{
+							"key": "rangeStart",
+							"value": "2024-08-17 15:15:15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events blogers startDate size",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получение евентов первого и второго пользователя с размером\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/3/subscriptions?from=1&size=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"3",
+						"subscriptions"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "events blogers only one event",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получение евентов второго пользователя\", function(){\r",
+							"    pm.response.to.be.ok //статус ок\r",
+							"    pm.response.to.be.withBody //\r",
+							"    pm.response.to.be.json\r",
+							"\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/4/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"4",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

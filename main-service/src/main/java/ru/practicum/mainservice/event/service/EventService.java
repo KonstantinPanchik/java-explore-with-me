@@ -45,4 +45,10 @@ public interface EventService {
 
 
     EventFullDto updateByAdmin(Long eventId, UpdateEventUserRequest adminRequest);
+
+    List<EventShortDto> getBloggersEvents(Long userId,
+                                          Integer from,
+                                          Integer size,
+                                          LocalDateTime start,
+                                          LocalDateTime end);
 }
